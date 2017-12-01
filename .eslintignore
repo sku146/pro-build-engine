@@ -1,0 +1,9 @@
+/build/**
+/coverage/**
+/docs/**
+/jsdoc/**
+/tmp/**
+/dist/**
+/dist-release/**
+/dashboard/**
+src/configs/**

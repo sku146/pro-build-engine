@@ -1,0 +1,86 @@
+{
+  "name": "pro-build-engine",
+  "version": "1.0.0",
+  "description": "React Application Webpack Build Engine",
+  "main": "lib/index.js",
+  "scripts": {
+    "source": "rimraf ./lib && babel src --out-dir lib -s",
+    "cli": "babel cli/index.js > index.js",
+    "build": "npm run source && npm run cli",
+    "engine:lint": "eslint 'src/**/*.js' -f table --fix",
+    "test:lint": "eslint -c specs/.eslintrc 'specs/**/*.spec.js' -f table --no-eslintrc",
+    "test:watch": "jest --config=specs/jest-config.json --watch",
+    "test": "exit 0",
+    "lint": "npm run engine:lint && npm run test:lint",
+    "posttest": "npm run build",
+    "prepublish": "npm run test",
+    "doc": "jsdoc -c conf.json -R README.md",
+    "check": "npm-check -u"
+  },
+  "keywords": [
+    "React",
+    "Webpack",
+    "Boilerplate",
+    "Application",
+    "Build",
+    "Engine"
+  ],
+  "precommit": [
+    "test",
+    "build"
+  ],
+  "author": {
+    "name": "SAPIENT",
+    "email": "skumar146@sapient.com"
+  },
+  "license": "ISC",
+  "engines": {
+    "node": ">= 6",
+    "npm": ">= 3"
+  },
+  "dependencies": {
+    "babel-jest": "^21.2.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-build-engine": "^1.0.1",
+    "babel-watch": "^2.0.7",
+    "chalk": "^2.3.0",
+    "commander": "^2.11.0",
+    "cross-env": "^5.1.1",
+    "cross-spawn": "^5.1.0",
+    "css-loader": "^0.28.7",
+    "eslint-config-build-engine": "^1.0.3",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^1.1.5",
+    "html-webpack-plugin": "^2.30.1",
+    "http-server": "^0.10.0",
+    "ink-docstrap": "^1.3.2",
+    "jest": "^21.2.1",
+    "jsdoc": "^3.5.5",
+    "json-server": "^0.12.1",
+    "less": "^2.7.3",
+    "less-loader": "^4.0.5",
+    "lodash": "^4.17.4",
+    "node-sass": "^4.7.1",
+    "nodemon": "^1.12.1",
+    "npm-check": "^5.5.2",
+    "postcss-loader": "^2.0.8",
+    "pre-commit": "^1.2.2",
+    "resolve-url-loader": "^2.2.0",
+    "rimraf": "^2.6.2",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.19.0",
+    "stylelint": "^8.2.0",
+    "stylelint-config-standard": "^17.0.0",
+    "stylelint-formatter-table": "^1.0.3",
+    "url-loader": "^0.6.2",
+    "webpack": "^3.8.1",
+    "webpack-dev-server": "^2.9.4",
+    "webpack-merge": "^4.1.1"
+  },
+  "devDependencies": {
+    "mock-fs": "^4.4.2"
+  },
+  "bin": {
+    "engine": "./index.js"
+  }
+}
