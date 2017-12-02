@@ -9,6 +9,7 @@ import map from 'lodash/map';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import FaviconsWebpackPlugin from 'favicons-webpack-plugin';
 import merge from 'webpack-merge';
 import { DEFAULT_VALUE, ENV, CLI_PATH } from '../constants';
 import {
@@ -82,9 +83,10 @@ const getScoutTemplateConfig = (indexTemplateConfig = {}, basePath = '') => {
   const rootPath = isEmpty(basePath) ? '' : `${basePath}/`;
   return {
     props,
-    favicon: indexTemplateConfig.favicon,
     filename: `${rootPath}${indexTemplateConfig.filename || 'index.html'}`,
     template: indexTemplateConfig.template,
+    inject: indexTemplateConfig.inject,
+    minify: indexTemplateConfig.minify,
   };
 };
 
@@ -98,12 +100,15 @@ const getTemplateConfig = (env = ENV.DEV, journey = '', brand = '') => {
   const currentProperties = configs.brandProperties[brand] || configs.brandProperties.default;
   const properties = updateProperties(currentProperties, {
     basePath: (env === ENV.DEV) ? `${journeyBrandPath}/` : '/',
+    env,
+    security: configs.security || {},
   });
   return {
-    favicon: sysPath.resolve(process.cwd(), configs.favIcon),
     filename: journeyConfig.htmlOutput.fileName,
     template: sysPath.resolve(process.cwd(), journeyConfig.htmlOutput.template),
     props: properties,
+    inject: configs.inject,
+    minify: configs.htmlMinify || false,
   };
 };
 
@@ -163,6 +168,8 @@ const getVersionPlugins = (env = ENV.DEV, journey = '', brand = '', templateConf
     const scoutTemplateConfig = getScoutTemplateConfig(templateConfig, basePath);
     return [
       new HtmlWebpackPlugin(scoutTemplateConfig),
+      new FaviconsWebpackPlugin(configs.favIcon),
+      new plugins.SecurityTemplatePlugin(configs.security),
       new plugins.VersionTemplatePlugin({
         filePath: versionFilename,
         noHash: configs.noHash,
@@ -180,6 +187,7 @@ const getWebpackConfigs = (env = ENV.DEV, journey = '', brand = '') => {
   }
 
   const configs = getEnvWebpack(env);
+  const baseConfigs = getEnvConfig(env);
   const templateConfig = getTemplateConfig(env, journey, brand);
 
   return merge.smart({
@@ -194,6 +202,7 @@ const getWebpackConfigs = (env = ENV.DEV, journey = '', brand = '') => {
       ...plugins[env],
       ...getExtractTextSass(env, journey),
       new HtmlWebpackPlugin(templateConfig),
+      new FaviconsWebpackPlugin(baseConfigs.favIcon),
       ...getVersionPlugins(env, journey, brand, templateConfig),
       getDefinePlugin(env, journey, brand),
     ],

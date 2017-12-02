@@ -63,7 +63,7 @@ const getReportCommand = () => {
   return CLI_COMMAND.eslintReport()(eslintConfig.base[0]);
 };
 
-const getMockServerCommand = (program = {}, dirName = '') => {
+const getMockServerCommand = (program = {}) => {
   const mockResult = isValidTask('mock');
   if (mockResult && !mockResult.status) {
     exitError(mockResult.msg);

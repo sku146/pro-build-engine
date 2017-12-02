@@ -1,6 +1,6 @@
 {
   "name": "pro-build-engine",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React Application Webpack Build Engine",
   "main": "lib/index.js",
   "scripts": {
@@ -44,12 +44,15 @@
     "babel-preset-build-engine": "^1.0.1",
     "babel-watch": "^2.0.7",
     "chalk": "^2.3.0",
+    "cheerio": "^1.0.0-rc.2",
     "commander": "^2.11.0",
     "cross-env": "^5.1.1",
     "cross-spawn": "^5.1.0",
+    "crypto-js": "^3.1.9-1",
     "css-loader": "^0.28.7",
     "eslint-config-build-engine": "^1.0.3",
     "extract-text-webpack-plugin": "^3.0.2",
+    "favicons-webpack-plugin": "0.0.7",
     "file-loader": "^1.1.5",
     "html-webpack-plugin": "^2.30.1",
     "http-server": "^0.10.0",

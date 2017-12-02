@@ -1,2 +1,2 @@
-# app-build-engine
-Webpack 2 build engine for React scaffold projects
+# pro-build-engine
+Webpack build engine for React scaffold projects
