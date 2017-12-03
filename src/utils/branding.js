@@ -10,6 +10,7 @@ import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import FaviconsWebpackPlugin from 'favicons-webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
 import merge from 'webpack-merge';
 import { DEFAULT_VALUE, ENV, CLI_PATH } from '../constants';
 import {
@@ -181,6 +182,14 @@ const getVersionPlugins = (env = ENV.DEV, journey = '', brand = '', templateConf
   return [];
 };
 
+const getCopyConfig = (env = ENV.DEV, journey = '') => {
+  const journeyConfig = getJourneyConfig(env, journey);
+  if (isEmpty(journeyConfig)) {
+    return {};
+  }
+  return journeyConfig.copy || [];
+};
+
 const getWebpackConfigs = (env = ENV.DEV, journey = '', brand = '') => {
   if (isEmpty(journey)) {
     return {};
@@ -189,6 +198,7 @@ const getWebpackConfigs = (env = ENV.DEV, journey = '', brand = '') => {
   const configs = getEnvWebpack(env);
   const baseConfigs = getEnvConfig(env);
   const templateConfig = getTemplateConfig(env, journey, brand);
+  const copyContent = getCopyConfig(env, journey);
 
   return merge.smart({
     entry: getEntry(env, journey, brand),
@@ -205,6 +215,7 @@ const getWebpackConfigs = (env = ENV.DEV, journey = '', brand = '') => {
       new FaviconsWebpackPlugin(baseConfigs.favIcon),
       ...getVersionPlugins(env, journey, brand, templateConfig),
       getDefinePlugin(env, journey, brand),
+      new CopyWebpackPlugin(copyContent),
     ],
   }, configs);
 };

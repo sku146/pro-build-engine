@@ -1,6 +1,6 @@
 {
   "name": "pro-build-engine",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "React Application Webpack Build Engine",
   "main": "lib/index.js",
   "scripts": {
@@ -46,6 +46,7 @@
     "chalk": "^2.3.0",
     "cheerio": "^1.0.0-rc.2",
     "commander": "^2.11.0",
+    "copy-webpack-plugin": "^4.2.3",
     "cross-env": "^5.1.1",
     "cross-spawn": "^5.1.0",
     "crypto-js": "^3.1.9-1",
