@@ -169,7 +169,6 @@ const getVersionPlugins = (env = ENV.DEV, journey = '', brand = '', templateConf
     const scoutTemplateConfig = getScoutTemplateConfig(templateConfig, basePath);
     return [
       new HtmlWebpackPlugin(scoutTemplateConfig),
-      new FaviconsWebpackPlugin(configs.favIcon),
       new plugins.SecurityTemplatePlugin(configs.security),
       new plugins.VersionTemplatePlugin({
         filePath: versionFilename,
