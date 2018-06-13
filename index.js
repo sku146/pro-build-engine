@@ -19,16 +19,6 @@ var _package2 = _interopRequireDefault(_package);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-const currentNodeVersion = process.versions.node;
-if (currentNodeVersion.split('.')[0] < 6) {
-  console.error(_chalk2['default'].white.bgRed(_constants.MSG.NODE()(currentNodeVersion)));
-  process.exit(1);
-}
-
-if (currentNodeVersion.split('.')[0] > 6) {
-  console.warn(_chalk2['default'].white.bgRed(_constants.MSG.HNODE()(currentNodeVersion)));
-}
-
 const result = (0, _webpack.isValidExecute)();
 if (result && !result.status) {
   console.error(_chalk2['default'].white.bgRed(result.msg));
