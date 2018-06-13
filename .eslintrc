@@ -1,6 +1,7 @@
 {
   "extends":[
-    "build-engine",
-    "build-engine/lodash"
+    "sxt-engine",
+    "sxt-engine/lodash",
+    "sxt-engine/smells"
   ]
 }

@@ -1,3 +1,6 @@
 {
-  "extends":["build-engine/jest"]
+  "extends":[
+    "sxt-engine/jest",
+    "sxt-engine/prettier"
+  ]
 }

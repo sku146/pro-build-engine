@@ -25,10 +25,6 @@ if (currentNodeVersion.split('.')[0] < 6) {
   process.exit(1);
 }
 
-if (currentNodeVersion.split('.')[0] > 6) {
-  console.warn(_chalk2['default'].white.bgRed(_constants.MSG.HNODE()(currentNodeVersion)));
-}
-
 const result = (0, _webpack.isValidExecute)();
 if (result && !result.status) {
   console.error(_chalk2['default'].white.bgRed(result.msg));

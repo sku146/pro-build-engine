@@ -15,6 +15,7 @@ export const DEFAULT_VALUE = {
   MOCK: 'server',
   BASE: 'base',
   STYLE: 'style',
+  ASSETS_LIMIT: 100000,
 };
 
 export const stringTemplate = (strings, ...keys) => ((...values) => {
@@ -78,7 +79,7 @@ export const CLI_COMMAND = {
   compile: () => stringTemplate`./node_modules/.bin/rimraf ${0}&&./node_modules/.bin/babel configs --out-dir ${0} -s -q`,
   build: () => stringTemplate`./node_modules/.bin/rimraf ${1}&&./node_modules/.bin/cross-env ./node_modules/.bin/webpack --config ${0}/lib/webpack/webpack.dev.config.js`,
   server: () => stringTemplate`./node_modules/.bin/cross-env node ${0}/lib/webpack/webpack-dev-server.js`,
-  release: () => stringTemplate`./node_modules/.bin/rimraf ${1}&&./node_modules/.bin/cross-env ./node_modules/.bin/webpack --config ${0}/lib/webpack/webpack.prod.config.js`,
+  release: () => stringTemplate`./node_modules/.bin/rimraf ${1}&&./node_modules/.bin/cross-env ./node_modules/.bin/webpack --config ${0}/lib/webpack/webpack.prod.config.js --run-prod`,
   eslint: () => stringTemplate`./node_modules/.bin/eslint ${0} -f table --fix`,
   eslintReport: () => stringTemplate`./node_modules/.bin/eslint ${0} -f checkstyle -o checkstyle-result.xml`,
   styleLint: () => stringTemplate`./node_modules/.bin/stylelint ${0} --fix`,
