@@ -1,9 +1,7 @@
 import sysPath from 'path';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import { CLI_PATH } from '../constants';
-import {
-  common as commonConfigs,
-} from '../configs';
+import { common as commonConfigs } from '../configs';
 
 const ROOT_DIR = sysPath.resolve(`${process.cwd()}`);
 
