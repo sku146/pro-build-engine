@@ -15,10 +15,6 @@ if (currentNodeVersion.split('.')[0] < 6) {
   process.exit(1);
 }
 
-if (currentNodeVersion.split('.')[0] > 6) {
-  console.warn(chalk.white.bgRed(MSG.HNODE()(currentNodeVersion)));
-}
-
 const result = isValidExecute();
 if (result && !result.status) {
   console.error(chalk.white.bgRed(result.msg));

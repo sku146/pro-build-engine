@@ -8,9 +8,10 @@ import compact from 'lodash/compact';
 import map from 'lodash/map';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import FaviconsWebpackPlugin from 'favicons-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
+import CspHtmlWebpackPlugin from 'csp-html-webpack-plugin';
 import merge from 'webpack-merge';
 import { DEFAULT_VALUE, ENV, CLI_PATH } from '../constants';
 import {
@@ -123,10 +124,8 @@ const getExtractTextSass = (env = ENV.DEV, journey = '') => {
     return [];
   }
   const sName = (env === ENV.PROD && !configs.noHash) ? `${styleOutputPath.path}.[chunkhash]` : `${styleOutputPath.path}`;
-  return [new ExtractTextPlugin({
+  return [new MiniCssExtractPlugin({
     filename: `${sName}.css`,
-    disable: false,
-    allChunks: true,
   })];
 };
 
@@ -169,7 +168,10 @@ const getVersionPlugins = (env = ENV.DEV, journey = '', brand = '', templateConf
     const scoutTemplateConfig = getScoutTemplateConfig(templateConfig, basePath);
     return [
       new HtmlWebpackPlugin(scoutTemplateConfig),
-      new plugins.SecurityTemplatePlugin(configs.security),
+      new CspHtmlWebpackPlugin(configs.security.contentSecurityPolicy, {
+        hashingMethod: 'sha256',
+        enabled: true,
+      }),
       new plugins.VersionTemplatePlugin({
         filePath: versionFilename,
         noHash: configs.noHash,

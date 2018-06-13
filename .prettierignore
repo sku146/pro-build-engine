@@ -1,0 +1,11 @@
+.github/
+
+# editor configs
+.idea/
+.vscode/
+jest_9hqv4w/
+coverage/
+dist/
+lib/
+dashboard/
+package.json

@@ -1,9 +1,7 @@
 import sysPath from 'path';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import { CLI_PATH } from '../constants';
-import {
-  common as commonConfigs,
-} from '../configs';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import { CLI_PATH, DEFAULT_VALUE } from '../constants';
+import { common as commonConfigs } from '../configs';
 
 const ROOT_DIR = sysPath.resolve(`${process.cwd()}`);
 
@@ -18,7 +16,7 @@ const common = [
     use: [{
       loader: 'url-loader',
       options: {
-        limit: commonConfigs.assetsBundleLimit || 100000,
+        limit: commonConfigs.assetsBundleLimit || DEFAULT_VALUE.ASSETS_LIMIT,
         name: 'fonts/[name].[ext]?[hash]',
       },
     }],
@@ -28,7 +26,7 @@ const common = [
     use: [{
       loader: 'url-loader',
       options: {
-        limit: commonConfigs.assetsBundleLimit || 100000,
+        limit: commonConfigs.assetsBundleLimit || DEFAULT_VALUE.ASSETS_LIMIT,
         name: 'img/[name].[ext]?[hash]',
       },
     }],
@@ -38,7 +36,7 @@ const common = [
 const development = [
   ...common,
   {
-    test: /\.(scss|sass)$/,
+    test: /\.s?[ac]ss$/,
     use: [{
       loader: 'style-loader',
     }, {
@@ -96,9 +94,9 @@ const development = [
 const production = [
   ...common,
   {
-    test: /\.(scss|sass)$/,
-    loader: ExtractTextPlugin.extract({
-      use: [{
+    test: /\.s?[ac]ss$/,
+    use: [MiniCssExtractPlugin.loader,
+      {
         loader: 'css-loader',
         options: {
           minimize: true,
@@ -121,13 +119,11 @@ const production = [
           sourceMapContents: true,
         },
       }],
-      fallback: 'style-loader',
-    }),
   },
   {
     test: /\.less$/,
-    loader: ExtractTextPlugin.extract({
-      use: [{
+    use: [MiniCssExtractPlugin.loader,
+      {
         loader: 'css-loader',
         options: {
           minimize: true,
@@ -146,8 +142,6 @@ const production = [
           paths: [ROOT_DIR, CLI_PATH.NODE_MODULES],
         },
       }],
-      fallback: 'style-loader',
-    }),
   },
 ];
 
