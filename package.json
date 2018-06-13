@@ -1,6 +1,6 @@
 {
   "name": "pro-build-engine",
-  "version": "2.0.0-beta",
+  "version": "2.0.0",
   "description": "React Application Webpack Build Engine",
   "main": "lib/index.js",
   "scripts": {
@@ -55,7 +55,7 @@
     "crypto-js": "^3.1.9-1",
     "csp-html-webpack-plugin": "^2.3.0",
     "css-loader": "^0.28.11",
-    "eslint-config-sxt-engine": "^1.1.0",
+    "eslint-config-sxt-engine": "^1.0.9",
     "favicons-webpack-plugin": "0.0.9",
     "file-loader": "^1.1.11",
     "html-webpack-plugin": "^3.2.0",
