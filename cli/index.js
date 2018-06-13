@@ -9,16 +9,6 @@ import {
   series,
 } from './lib/webpack';
 
-const currentNodeVersion = process.versions.node;
-if (currentNodeVersion.split('.')[0] < 6) {
-  console.error(chalk.white.bgRed(MSG.NODE()(currentNodeVersion)));
-  process.exit(1);
-}
-
-if (currentNodeVersion.split('.')[0] > 6) {
-  console.warn(chalk.white.bgRed(MSG.HNODE()(currentNodeVersion)));
-}
-
 const result = isValidExecute();
 if (result && !result.status) {
   console.error(chalk.white.bgRed(result.msg));
